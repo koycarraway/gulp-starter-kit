@@ -74,11 +74,7 @@ gulp.task('vendor', function () {
     gulp.src('bower_components/picturefill/dist/picturefill.js')
       .pipe($.rename('picturefill.min.js'))
       .pipe($.uglify())
-      .pipe(gulp.dest(DEST + '/vendor/picturefill-' + pkgs.picturefill)),
-    gulp.src('bower_components/headroom/dist/headroom.js')
-      .pipe($.rename('headroom.min.js'))
-      .pipe($.uglify())
-      .pipe(gulp.dest(DEST + '/vendor/headroom-' + pkgs.headroom))
+      .pipe(gulp.dest(DEST + '/vendor/picturefill-' + pkgs.picturefill))
   );
 });
 
@@ -152,7 +148,7 @@ gulp.task('styles', function () {
     }))
     .pipe(sass({
       compass: true,
-      bundleExec: true,
+      bundleExec: false,
       sourcemap: false,
       sourcemapPath: 'styles'
     }))

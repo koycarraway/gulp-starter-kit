@@ -1,0 +1,195 @@
+/*============================================================================
+  #Typography
+==============================================================================*/
+
+body,
+input,
+textarea,
+button,
+select {
+  @include font-size(16);
+  line-height: $base-line-height;
+  font-family: $sans-serif;
+  color: $colorText;
+  font-weight: normal;
+  -webkit-text-size-adjust: 100%;
+  @include font-smoothing(off);
+
+  &:focus {
+    outline: 0;
+  }
+}
+
+h1, h2, h3, h4, h5, h6 {
+  display: block;
+  font-family: $headerFontStack;
+  font-weight: normal;
+  margin-bottom: 0.5em;
+  line-height: 1.4;
+  text-rendering: optimizeLegibility;
+  @include font-smoothing(on);
+
+  a {
+    text-decoration: none;
+    font-weight: inherit;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &:last-of-type:last-child {
+    margin-bottom: 0;
+  }
+}
+
+h1 { @include font-size(42); }
+h2 { @include font-size(34); }
+h3 { @include font-size(28); }
+h4 { @include font-size(20); }
+h5 { @include font-size(16); }
+h6 { @include font-size(14); }
+
+p {
+  margin: 0 0 $gutter/2 0;
+
+  img {
+    margin: 0;
+  }
+
+  &:last-of-type:last-child {
+    margin-bottom: 0;
+  }
+}
+
+em {
+  font-style: italic;
+}
+
+b, strong {
+  font-weight: bold;
+}
+
+small {
+  font-size: 80%;
+}
+
+sup, sub {
+  position: relative;
+  font-size: 60%;
+  vertical-align: baseline;
+}
+sup {
+  top: -0.5em;
+}
+
+sub {
+  bottom: -0.5em;
+}
+
+/*================ Blockquotes ================*/
+blockquote {
+  @include font-size(15);;
+  line-height: 1.45;
+  font-style: italic;
+  margin: 0 0 $gutter;
+  padding: $gutter/2 $gutter;
+  border-left: 1px solid $colorBorder;
+
+  p {
+    margin-bottom: 0;
+
+    & + cite {
+      margin-top: $gutter/2;
+    }
+  }
+
+  cite {
+    display: block;
+    @include font-size(12);;
+
+    &:before {
+      content: "\2014 \0020";
+    }
+  }
+}
+
+/*================ Code ================*/
+code, pre {
+  background-color: #faf7f5;
+  font-family: Consolas,monospace;
+  @include font-size(16);
+  border: 0 none;
+  padding: 0 2px;
+  color: #51ab62;
+}
+
+pre {
+  overflow: auto;
+  padding: 0.5em;
+  margin: 0 0 1em;
+}
+
+/*================ Horizontal Rules ================*/
+hr {
+  clear: both;
+  border-top: solid $colorBorder;
+  border-width: 1px 0 0;
+  margin: $gutter 0;
+  height: 0;
+
+  &.hr--small {
+    margin: $gutter/2 0;
+  }
+
+  &.hr--clear {
+    border-top-color: transparent;
+  }
+}
+
+/*================ Rich Text Editor ================*/
+.rte {
+  margin-bottom: $gutter/2;
+
+  // Add some top margin to headers from the rich text editor
+  h1, h2, h3, h4, h5, h6 {
+    margin-top: 2em;
+
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  & > div {
+    margin-bottom: $gutter/2;
+  }
+
+  ul, ol {
+    margin-left: 35px;
+  }
+
+  ul {
+    // @extend ul.disc;
+  }
+
+  li {
+    margin-bottom: 0.4em;
+  }
+}
+
+.rte-header {
+  margin-bottom: 0;
+}
+
+/*================ Selection Colors ================*/
+::selection {
+  background-color: $brand-color;
+  color: $white;
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background-color: $brand-color;
+  color: $white;
+  text-shadow: none;
+}

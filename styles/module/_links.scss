@@ -1,0 +1,22 @@
+/*============================================================================
+  #Links
+==============================================================================*/
+
+a {
+    color: $colorLink;
+    background: transparent;
+
+    &:visited {
+      color: $colorLinkVisited;
+    }
+
+    &:hover, &:focus {
+      color: $colorLinkHover;
+      text-decoration: underline;
+    }
+
+    &:active {
+      color: $colorLinkHover;
+      outline: none;
+    }
+  }

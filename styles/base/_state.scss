@@ -1,0 +1,123 @@
+//  Global states -------------------------------------------------------------
+//
+// Placeholders that contain frequently used styles
+// Extend to these from your main css
+
+%is-bold { font-weight: bold; }
+%is-underlined { text-decoration: underline; }
+%is-italic { font-style: italic; }
+%is-uppercase { text-transform: uppercase; }
+%is-smallcaps { font-variant: small-caps; }
+
+%is-cf:before,
+%is-cf:after {
+	content: '';
+	display: table;
+}
+%is-cf:after { clear: both; }
+%is-cf { *zoom: 1; }
+
+%is-vertical-aligned {
+	position: relative;
+	top: 50%;
+	transform: translateY(-50%);
+}
+
+
+// ==========================================================================
+//  Custome Patterns / SASS Placeholders
+// ==========================================================================
+
+// Image Replacement
+%ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+    /* IE 6/7 fallback */
+    *text-indent: -9999px;
+}
+
+%ir:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 150%;
+}
+
+// Hide from both screenreaders and browsers: h5bp.com/u
+%is-hidden {
+  display : none !important;
+  visibility : hidden;
+}
+
+// Hide only visually, but have it available for screenreaders: h5bp.com/v
+%is-visuallyhidden {
+  overflow : hidden;
+  position : absolute;
+  clip : rect(0 0 0 0);
+  height : 1px;
+  width : 1px;
+  margin : -1px;
+  padding : 0;
+  border : 0;
+
+  // Extends the .visuallyhidden class to allow the element to be focusable
+  // when navigated to via the keyboard: h5bp.com/p
+  &.focusable {
+
+    &:active,
+    &:focus {
+      position : static;
+      clip : auto;
+      height : auto;
+      width : auto;
+      margin : 0;
+      overflow: visible;
+    }
+  }
+}
+
+// Hide visually and from screenreaders, but maintain layout
+%is-invisible {
+  visibility : hidden;
+}
+
+%is-text-overflow {
+  overflow : hidden;
+  text-overflow : ellipsis;
+  white-space : nowrap;
+}
+
+%is-grayscale {
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0.3333 0.3333 0.3333 0 0 0 0 0 1 0\'/></filter></svg>#grayscale"); /* Firefox 10+, Firefox on Android */
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(100%); /* Chrome 19+, Safari 6+, Safari 6+ iOS */
+}
+
+%is-grayscale-off {
+  filter: url("data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\'><filter id=\'grayscale\'><feColorMatrix type=\'matrix\' values=\'1 0 0 0 0, 0 1 0 0 0, 0 0 1 0 0, 0 0 0 1 0\'/></filter></svg>#grayscale");
+  -webkit-filter: grayscale(0%);
+}
+
+%is-centered-fixed {
+  position: fixed;
+  z-index: 9999;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+}
+
+%is-centered {
+  position: relative;
+  left: 0;
+  right: 0;
+  text-align: center;
+  margin: 0 auto;
+}
+
+%bg-cover {
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}

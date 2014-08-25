@@ -13,6 +13,9 @@ var del = require('del');
 var merge = require('merge-stream');
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
+var sass = require('gulp-ruby-sass');
+var plumber = require('gulp-plumber');
+var notify = require('gulp-notify');
 var pagespeed = require('psi');
 var argv = require('minimist')(process.argv.slice(2));
 
@@ -55,15 +58,42 @@ gulp.task('clean', del.bind(null, [DEST]));
 
 // 3rd party libraries
 gulp.task('vendor', function () {
-    return merge(
-        gulp.src('bower_components/jquery/dist/**')
-            .pipe(gulp.dest(DEST + '/vendor/jquery-' + pkgs.jquery)),
-        gulp.src('bower_components/modernizr/modernizr.js')
-            .pipe($.rename('modernizr.min.js'))
-            .pipe($.uglify())
-            .pipe(gulp.dest(DEST + '/vendor/modernizr-' + pkgs.modernizr))
-    );
+  return merge(
+    gulp.src('bower_components/jquery/dist/jquery.js')
+      .pipe($.rename('jquery.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest(DEST + '/vendor/jquery-' + pkgs.jquery)),
+    gulp.src('bower_components/modernizr/modernizr.js')
+      .pipe($.rename('modernizr.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest(DEST + '/vendor/modernizr-' + pkgs.modernizr)),
+    gulp.src('bower_components/restive/restive.js')
+      .pipe($.rename('restive.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest(DEST + '/vendor/restive-' + pkgs.restive)),
+    gulp.src('bower_components/picturefill/dist/picturefill.js')
+      .pipe($.rename('picturefill.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest(DEST + '/vendor/picturefill-' + pkgs.picturefill)),
+    gulp.src('bower_components/headroom/dist/headroom.js')
+      .pipe($.rename('headroom.min.js'))
+      .pipe($.uglify())
+      .pipe(gulp.dest(DEST + '/vendor/headroom-' + pkgs.headroom))
+  );
 });
+
+// // 3rd Party Libraries
+// gulp.task('vendor', function () {
+//     src.scripts = ['bower_components/jquery/dist/jquery.min.js', 'bower_components/modernizr/modernizr.js', 'bower_components/restive/restive.js', 'bower_components/picturefill/dist/picturefill.js'];
+//     return gulp.src(src.scripts)
+//         .pipe($.if(!RELEASE, $.sourcemaps.init()))
+//         .pipe($.concat('vendor.js'))
+//         .pipe($.if(RELEASE, $.uglify()))
+//         .pipe($.if(!RELEASE, $.sourcemaps.write()))
+//         .pipe(gulp.dest(DEST + '/scripts'))
+//         .pipe($.if(watch, reload({stream: true})));
+// });
+
 
 // Static files
 gulp.task('assets', function () {
@@ -81,13 +111,13 @@ gulp.task('images', function () {
             progressive: true,
             interlaced: true
         })))
-        .pipe(gulp.dest(DEST + '/img'))
+        .pipe(gulp.dest(DEST + '/images'))
         .pipe($.if(watch, reload({stream: true})));
 });
 
 // Fonts
 gulp.task('fonts', function () {
-    return gulp.src('node_modules/bootstrap/fonts/**')
+    return gulp.src('./fonts/**')
         .pipe(gulp.dest(DEST + '/fonts'));
 });
 
@@ -112,19 +142,27 @@ gulp.task('pages', function () {
         .pipe($.if(watch, reload({stream: true})));
 });
 
-// CSS style sheets
+// SASS style sheets
 gulp.task('styles', function () {
-    src.styles = 'styles/**/*.{css,less}';
-    return gulp.src('styles/bootstrap.less')
-        .pipe($.if(!RELEASE, $.sourcemaps.init()))
-        .pipe($.less())
-        .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
-        .pipe($.csscomb())
-        .pipe(RELEASE ? $.cssmin() : $.util.noop())
-        .pipe($.rename('style.css'))
-        .pipe($.if(!RELEASE, $.sourcemaps.write()))
-        .pipe(gulp.dest(DEST + '/css'))
-        .pipe($.if(watch, reload({stream: true})));
+  src.styles = './styles/**/*.scss';
+  return gulp.src('./styles/**/*.scss')
+    .pipe($.if(!RELEASE, $.sourcemaps.init()))
+    .pipe(plumber({
+      errorHandler: notify.onError("Error: <%= error.message %>")
+    }))
+    .pipe(sass({
+      compass: true,
+      bundleExec: true,
+      sourcemap: false,
+      sourcemapPath: 'styles'
+    }))
+    .pipe($.autoprefixer(AUTOPREFIXER_BROWSERS))
+    .pipe($.csscomb())
+    .pipe(RELEASE ? $.cssmin() : $.util.noop())
+    // .pipe($.rename('main.css'))
+    .pipe($.if(!RELEASE, $.sourcemaps.write()))
+    .pipe(gulp.dest(DEST + '/styles'))
+    .pipe($.if(watch, reload({stream: true})));
 });
 
 // JavaScript
@@ -135,7 +173,7 @@ gulp.task('scripts', function () {
         .pipe($.concat('bundle.js'))
         .pipe($.if(RELEASE, $.uglify()))
         .pipe($.if(!RELEASE, $.sourcemaps.write()))
-        .pipe(gulp.dest(DEST + '/js'))
+        .pipe(gulp.dest(DEST + '/scripts'))
         .pipe($.if(watch, reload({stream: true})));
 });
 

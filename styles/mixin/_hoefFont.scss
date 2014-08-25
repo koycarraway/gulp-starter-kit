@@ -1,0 +1,40 @@
+// H&Co Typography mixin -------------------------------------------------------------
+//
+// $fontFamily:   Gotham, Sentinel, Whitney
+// $fontWeight:   light, book, medium, semibold, bold, black
+// $fontStyle:    normal, italic
+//
+// USAGE: @include font-size(value);
+
+@function capitalize($string) {
+  @return to-upper-case(str-slice($string, 1, 1)) + str-slice($string, 2);
+}
+
+// Alias
+@function str-ucfirst($string) {
+  @return capitalize($string);
+}
+
+@mixin HoefFont($fontFamily, $fontWeight, $SSm: true, $fontStyle: normal) {
+
+  $fontFamily: capitalize($fontFamily);
+  $fontWeights: (
+    xlight: 200,
+    light: 300,
+    book: 400,
+    medium: 500,
+    semibold: 600,
+    bold: 700,
+    black: 800,
+  );
+  $fontWeight: map-get($fontWeights, $fontWeight);
+
+  @if $SSm == true {
+    font-family: '#{$fontFamily} SSm A', '#{$fontFamily} SSm B';
+  } @else {
+    font-family: '#{$fontFamily} A', '#{$fontFamily} B';
+  }
+
+  font-weight: $fontWeight;
+  font-style: $fontStyle;
+}

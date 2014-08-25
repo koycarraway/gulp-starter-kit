@@ -1,0 +1,14 @@
+// SVG PNG Fallback mixin -------------------------------------------------------------
+//
+// $file-path: '../path/to/file'
+// $width: 20
+// $height: 20
+//
+// USAGE: @include svgpng('../images/icon-sprite.png', 12, 12);
+
+@mixin svgpng($file-path, $width: null, $height: null) {
+  background: url('#{$file-path}.png');
+  background-image: url('#{$file-path}.svg'), none;
+  width: #{$width}px;
+  height: #{$height}px;
+}

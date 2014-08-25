@@ -1,0 +1,24 @@
+// ==========================================================================
+//  Typography Variables
+// ==========================================================================
+
+
+$sans-serif               : 'Helvetica Neue', helvetica, sans-serif !default;
+$serif                    : 'PT Serif', Georgia, Cambria, 'Times New Roman', Times, serif !default;
+$code-font                : Monaco, 'Courier New', monospace !default;
+$heading-font             : $sans-serif !default;
+$heading-font-weight      : 400 !default;
+$headerFontStack          : "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+$bodyFontStack            : "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+
+// $BaseType
+// -------------------------------------//
+
+$font-weight: normal !default;
+$base-line-height: 1.65 !default;
+$font-size: 100 !default;
+$font-base: 16 * ($font-size/100) !default;
+
+$gutter: 24px;
+$radius: 3px;

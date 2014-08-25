@@ -1,0 +1,20 @@
+// @font-face Custom mixin -------------------------------------------------------------
+//
+// $font-family:		Font family name
+// $file-path:      Name of font in file-path
+//
+// USAGE: @include fontface(values);
+//
+
+// @font-face Custom
+@mixin fontface($font-family, $file-path, $weight: normal, $style: normal) {
+  @font-face {
+    font-family: $font-family;
+    font-weight: $weight;
+    font-style: $style;
+    src: url('#{$file-path}.eot');                                        // IE9 Compat Modes
+    src: url('#{$file-path}.eot?#iefix')    format('embedded-opentype'),  // IE6-IE8
+         url('#{$file-path}.woff')          format('woff'),               // Modern Browsers
+         url('#{$file-path}.ttf')           format('truetype');           // Safari, Android, iOS
+  }
+}

@@ -1,4 +1,11 @@
-$bowerPath: '../bower_components/';
+
+$currentDate: current-date('%A, %b %e %Y');
+$currentTime: current-time('%T %p %Z');
+
+/*
+  Date: #{$currentDate}
+  Time: #{$currentTime}
+*/
 
 @import 'compass';
 @import 'breakpoint';

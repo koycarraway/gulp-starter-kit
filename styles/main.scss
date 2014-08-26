@@ -62,14 +62,16 @@ body {
 
   nav {
     @include span(4);
-    background: red;
+    @include font-size(12);
+    letter-spacing: .05em;
+    color: #a9aeb2;
+
+    li:hover {
+      color: #555;
+    }
 
     @include context('body', '.mobi') {
       background: green;
-    }
-
-    @include context('body', '.phone.landscape') {
-      background: #ff4a47;
     }
 
     @include susy-breakpoint(50em, 12) {

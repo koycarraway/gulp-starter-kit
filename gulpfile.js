@@ -78,19 +78,6 @@ gulp.task('vendor', function () {
   );
 });
 
-// // 3rd Party Libraries
-// gulp.task('vendor', function () {
-//     src.scripts = ['bower_components/jquery/dist/jquery.min.js', 'bower_components/modernizr/modernizr.js', 'bower_components/restive/restive.js', 'bower_components/picturefill/dist/picturefill.js'];
-//     return gulp.src(src.scripts)
-//         .pipe($.if(!RELEASE, $.sourcemaps.init()))
-//         .pipe($.concat('vendor.js'))
-//         .pipe($.if(RELEASE, $.uglify()))
-//         .pipe($.if(!RELEASE, $.sourcemaps.write()))
-//         .pipe(gulp.dest(DEST + '/scripts'))
-//         .pipe($.if(watch, reload({stream: true})));
-// });
-
-
 // Static files
 gulp.task('assets', function () {
     src.assets = 'assets/**';

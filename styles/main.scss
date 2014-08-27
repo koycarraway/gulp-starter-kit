@@ -8,6 +8,7 @@ $currentTime: current-time('%T %p %Z');
 */
 
 @import 'compass';
+@import 'toolkit';
 @import 'breakpoint';
 @import 'susy';
 
@@ -89,5 +90,23 @@ section.content {
 
   @include susy-breakpoint(50em, 12) {
     @include span(last 9);
+  }
+}
+
+
+a.btn {
+  @include button(hsla(149, 55%, 47%, 1), $white, 4px);
+
+  &__large {
+    @include font-size(18);
+  }
+  &__medium {
+    @include font-size(16);
+  }
+  &__small {
+    @include font-size(14);
+  }
+  &__tiny {
+    @include font-size(12);
   }
 }

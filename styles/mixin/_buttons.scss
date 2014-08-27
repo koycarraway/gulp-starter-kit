@@ -1,0 +1,72 @@
+// Button mixin -------------------------------------------------------------
+//
+//  http://alistapart.com/article/dry-ing-out-your-sass-mixins
+//  https://github.com/team-sass/toolkit
+//
+// USAGE: @include button(#decaff);
+//
+
+$Placeholder-Selectors: (
+);
+
+@mixin button($btnColor, $btnFontColor, $borderRadius, $extend: false, $grayscale: false) {
+  @include button-static($extend);
+  @include font-smoothing(on);
+  color: $btnFontColor;
+
+  @if (lightness($btnColor) > 80) {
+    color: adjust-color($btnFontColor, $saturation: -2%, $lightness: -25%);
+    @include font-smoothing(off);
+  }
+
+  background-color: $btnColor;
+  border-color: adjust-color($btnColor, $saturation: -2%, $lightness: -5%);
+  border-radius: $borderRadius;
+
+  &:hover:not(:disabled){
+    $base-color-hover: adjust-color($btnColor, $saturation: 2%, $lightness: 3%);
+
+    @if $grayscale == true {
+      $base-color-hover: grayscale($base-color-hover);
+    }
+
+    background-color: $base-color-hover;
+  }
+
+  &:active:not(:disabled),
+  &:focus:not(:disabled) {
+    $base-color-active: adjust-color($btnColor, $saturation: -2%, $lightness: -2%);
+    outline: none;
+
+    @if $grayscale == true {
+      $base-color-active: grayscale($base-color-active);
+    }
+
+    background-color: $base-color-active;
+  }
+}
+
+@mixin button-static($extend: true) {
+  $button-selector: map-get($Placeholder-Selectors, 'button');
+
+  @if $extend == true {
+    @include dynamic-extend('button') {
+      @include button-static(false);
+    }
+  }
+  @else {
+    border: 1px solid;
+    display: inline-block;
+    vertical-align: middle;
+    // line-height: 2.5;
+    padding: .4em 1em;
+    text-decoration: none;
+    white-space: nowrap;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+
